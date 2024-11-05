@@ -1,6 +1,36 @@
 # Working with text{-}
 
-We have now worked though how to load, save, and edit tabulated data. However, R is also perfectly equipped for working with textual data which is what we going to concentrate on now. 
+We have now worked though how to load, save, and edit data. So now, we will see if R is also perfectly equipped for working with textual data.
+
+In a first step, we will (re-)load the packages we need (just in case you have skipped this step before).
+
+
+```{r, echo=T, eval=F, message=F, warning=F}
+install.packages("tidyverse")
+install.packages("tidytext")
+install.packages("quanteda")
+install.packages("tokenizers")
+install.packages("here")
+install.packages("flextable")
+# install klippy for copy-to-clipboard button in code chunks
+install.packages("remotes")
+remotes::install_github("rlesur/klippy")
+```
+
+To load these packages, use the `library` function which takes the package name as its main argument.
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(tidytext)
+library(quanteda)
+library(tokenizers)
+library(here)
+library(flextable)
+# activate klippy for copy-to-clipboard button
+klippy::klippy()
+```
+
+Now, after installing the required packages, we will start working with text data.
 
 ## Loading and saving text(s) {-}
 

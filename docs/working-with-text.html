@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Working with text | Text Analytics part 1: Introduction to R for Text Analysis</title>
+  <meta name="description" content="Working with text | Text Analytics part 1: Introduction to R for Text Analysis" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Working with text | Text Analytics part 1: Introduction to R for Text Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Working with text | Text Analytics part 1: Introduction to R for Text Analysis" />
+  
+  
+  
+
+<meta name="author" content="Martin Schweinberger and Sam Hames" />
+
+
+<meta name="date" content="2024-11-05" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="getting-started-with-r.html"/>
+<link rel="next" href="ending-r-sessions.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ResBazQld 2024 Text Analytics Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-r-and-rstudio"><i class="fa fa-check"></i>Installing R and RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html"><i class="fa fa-check"></i>Preparation</a>
+<ul>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#folder-structure-and-r-projects"><i class="fa fa-check"></i>Folder Structure and R projects</a>
+<ul>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#create-a-folder-for-your-project"><i class="fa fa-check"></i>1. Create a folder for your project</a></li>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#open-rstudio"><i class="fa fa-check"></i>2. Open RStudio</a></li>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#r-projects"><i class="fa fa-check"></i>3. R Projects</a></li>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#r-notebooks"><i class="fa fa-check"></i>4. R Notebooks</a></li>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#getting-started-with-r-notebooks"><i class="fa fa-check"></i>5. Getting started with R Notebooks</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#r-markdown"><i class="fa fa-check"></i>R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html"><i class="fa fa-check"></i>R and RStudio Basics</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html#rstudio-panes"><i class="fa fa-check"></i>RStudio: Panes</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html#r-console-bottom-left-pane"><i class="fa fa-check"></i>R Console (bottom left pane)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html#running-commands-from-a-script"><i class="fa fa-check"></i>Running commands from a script</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html#script-editor-top-left-pane"><i class="fa fa-check"></i>Script Editor (top left pane)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i>Getting started with R</a>
+<ul>
+<li class="chapter" data-level="" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#setting-up-an-r-session"><i class="fa fa-check"></i>Setting up an R session</a></li>
+<li class="chapter" data-level="" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#packages"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-help"><i class="fa fa-check"></i>Getting help</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html"><i class="fa fa-check"></i>Working with text</a>
+<ul>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#loading-and-saving-texts"><i class="fa fa-check"></i>Loading and saving text(s)</a>
+<ul>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#loading-and-saving-a-single-text"><i class="fa fa-check"></i>Loading and saving a single text</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#loading-and-saving-many-texts"><i class="fa fa-check"></i>Loading and saving many texts</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#basics-of-regular-expressions"><i class="fa fa-check"></i>Basics of regular expressions</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#cleaning-text-data"><i class="fa fa-check"></i>Cleaning text data</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#tabulating-text-data"><i class="fa fa-check"></i>Tabulating text data</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#visualising-frequency-lists"><i class="fa fa-check"></i>Visualising frequency lists</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#concordancing-and-kwics"><i class="fa fa-check"></i>Concordancing and KWICs</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#going-further"><i class="fa fa-check"></i>Going further</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ending-r-sessions.html"><a href="ending-r-sessions.html"><i class="fa fa-check"></i>Ending R sessions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ending-r-sessions.html"><a href="ending-r-sessions.html#extracting-session-information"><i class="fa fa-check"></i>Extracting session information</a></li>
+<li class="chapter" data-level="" data-path="ending-r-sessions.html"><a href="ending-r-sessions.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Text Analytics part 1: Introduction to R for Text Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="working-with-text" class="section level1 unnumbered hasAnchor">
+<h1>Working with text<a href="working-with-text.html#working-with-text" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We have now worked though how to load, save, and edit data. So now, we will see if R is also perfectly equipped for working with textual data.</p>
+<p>In a first step, we will (re-)load the packages we need (just in case you have skipped this step before).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="working-with-text.html#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb1-2"><a href="working-with-text.html#cb1-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidytext&quot;</span>)</span>
+<span id="cb1-3"><a href="working-with-text.html#cb1-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;quanteda&quot;</span>)</span>
+<span id="cb1-4"><a href="working-with-text.html#cb1-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tokenizers&quot;</span>)</span>
+<span id="cb1-5"><a href="working-with-text.html#cb1-5" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;here&quot;</span>)</span>
+<span id="cb1-6"><a href="working-with-text.html#cb1-6" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;flextable&quot;</span>)</span>
+<span id="cb1-7"><a href="working-with-text.html#cb1-7" tabindex="-1"></a><span class="co"># install klippy for copy-to-clipboard button in code chunks</span></span>
+<span id="cb1-8"><a href="working-with-text.html#cb1-8" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb1-9"><a href="working-with-text.html#cb1-9" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;rlesur/klippy&quot;</span>)</span></code></pre></div>
+<p>To load these packages, use the <code>library</code> function which takes the package name as its main argument.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="working-with-text.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="working-with-text.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb2-3"><a href="working-with-text.html#cb2-3" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb2-4"><a href="working-with-text.html#cb2-4" tabindex="-1"></a><span class="fu">library</span>(tokenizers)</span>
+<span id="cb2-5"><a href="working-with-text.html#cb2-5" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-6"><a href="working-with-text.html#cb2-6" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb2-7"><a href="working-with-text.html#cb2-7" tabindex="-1"></a><span class="co"># activate klippy for copy-to-clipboard button</span></span>
+<span id="cb2-8"><a href="working-with-text.html#cb2-8" tabindex="-1"></a>klippy<span class="sc">::</span><span class="fu">klippy</span>()</span></code></pre></div>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<p>Now, after installing the required packages, we will start working with text data.</p>
+<div id="loading-and-saving-texts" class="section level2 unnumbered hasAnchor">
+<h2>Loading and saving text(s)<a href="working-with-text.html#loading-and-saving-texts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="loading-and-saving-a-single-text" class="section level3 unnumbered hasAnchor">
+<h3>Loading and saving a single text<a href="working-with-text.html#loading-and-saving-a-single-text" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To load text data from the web, we can use the <code>read_file</code> function which takes the URL of the text as its first argument. In this case will will load the 2016 rally speeches Donald Trump.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="working-with-text.html#cb3-1" tabindex="-1"></a><span class="co"># Read the lines of text from the &quot;english.txt&quot; file</span></span>
+<span id="cb3-2"><a href="working-with-text.html#cb3-2" tabindex="-1"></a><span class="co"># The `readLines` function reads each line from the specified file as a character vector</span></span>
+<span id="cb3-3"><a href="working-with-text.html#cb3-3" tabindex="-1"></a><span class="co"># The `here` function is used to construct a file path to the &quot;english.txt&quot; file in the &quot;data&quot; directory</span></span>
+<span id="cb3-4"><a href="working-with-text.html#cb3-4" tabindex="-1"></a>text1 <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">readLines</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;english.txt&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="working-with-text.html#cb3-5" tabindex="-1"></a>  </span>
+<span id="cb3-6"><a href="working-with-text.html#cb3-6" tabindex="-1"></a>  <span class="co"># Collapse the character vector into a single string with no spaces between lines</span></span>
+<span id="cb3-7"><a href="working-with-text.html#cb3-7" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="at">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb3-8"><a href="working-with-text.html#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="working-with-text.html#cb3-9" tabindex="-1"></a><span class="co"># Inspect the structure of the resulting text data to confirm it has been collapsed into a single string</span></span>
+<span id="cb3-10"><a href="working-with-text.html#cb3-10" tabindex="-1"></a><span class="fu">str</span>(text1)</span></code></pre></div>
+<pre><code>##  chr &quot;Linguistics is the scientific study of language and it involves the analysis of language form, language meaning&quot;| __truncated__</code></pre>
+<p>To save text data, we can use the writeLines function as shown below.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="working-with-text.html#cb5-1" tabindex="-1"></a><span class="co"># Write the contents of the `text1` variable to a new text file</span></span>
+<span id="cb5-2"><a href="working-with-text.html#cb5-2" tabindex="-1"></a><span class="co"># The `writeLines` function saves the character data in `text1` to a file</span></span>
+<span id="cb5-3"><a href="working-with-text.html#cb5-3" tabindex="-1"></a><span class="co"># The `here` function is used to specify the file path within the &quot;data&quot; directory, naming the file &quot;english_new.txt&quot;</span></span>
+<span id="cb5-4"><a href="working-with-text.html#cb5-4" tabindex="-1"></a><span class="fu">writeLines</span>(text1, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;english_new.txt&quot;</span>))</span></code></pre></div>
+</div>
+<div id="loading-and-saving-many-texts" class="section level3 unnumbered hasAnchor">
+<h3>Loading and saving many texts<a href="working-with-text.html#loading-and-saving-many-texts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When dealing with text data, it is quite common to encounter scenarios where we need to load multiple files containing texts. In such cases, we typically begin by storing the file locations in an object (referred to as <code>fls</code> in this context) and then proceed to load the files using the <code>sapply</code> function, which allows for looping. Within the <code>sapply</code> function, we have the option to utilize either <code>scan</code> or <code>writeLines</code> for reading the text. In the example below, we employ scan and subsequently merge the individual elements into a single text using the <code>paste</code> function. The output demonstrates the successful loading of 7 txt files from the <code>testcorpus</code> located within the <code>data</code> folder.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="working-with-text.html#cb6-1" tabindex="-1"></a><span class="co"># Extract file paths for all text files in the &quot;testcorpus&quot; directory</span></span>
+<span id="cb6-2"><a href="working-with-text.html#cb6-2" tabindex="-1"></a><span class="co"># `list.files` lists all files in the specified directory (constructed using `here::here`)</span></span>
+<span id="cb6-3"><a href="working-with-text.html#cb6-3" tabindex="-1"></a><span class="co"># The `pattern = &quot;txt&quot;` argument filters for files with a &quot;.txt&quot; extension</span></span>
+<span id="cb6-4"><a href="working-with-text.html#cb6-4" tabindex="-1"></a><span class="co"># `full.names = T` returns the full path for each file, making it easier to load them later</span></span>
+<span id="cb6-5"><a href="working-with-text.html#cb6-5" tabindex="-1"></a>fls <span class="ot">&lt;-</span> <span class="fu">list.files</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;testcorpus&quot;</span>), <span class="at">pattern =</span> <span class="st">&quot;txt&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-6"><a href="working-with-text.html#cb6-6" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="working-with-text.html#cb6-7" tabindex="-1"></a><span class="co"># Load the text from each file path into a character vector</span></span>
+<span id="cb6-8"><a href="working-with-text.html#cb6-8" tabindex="-1"></a><span class="co"># `sapply` applies a function to each element of `fls`, here loading each file&#39;s content</span></span>
+<span id="cb6-9"><a href="working-with-text.html#cb6-9" tabindex="-1"></a><span class="co"># `scan` reads the file contents as individual words (specified by `what = &quot;char&quot;`)</span></span>
+<span id="cb6-10"><a href="working-with-text.html#cb6-10" tabindex="-1"></a><span class="co"># `paste0` then collapses each file&#39;s content into a single string separated by spaces</span></span>
+<span id="cb6-11"><a href="working-with-text.html#cb6-11" tabindex="-1"></a>txts <span class="ot">&lt;-</span> <span class="fu">sapply</span>(fls, <span class="cf">function</span>(x){</span>
+<span id="cb6-12"><a href="working-with-text.html#cb6-12" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">scan</span>(x, <span class="at">what =</span> <span class="st">&quot;char&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-13"><a href="working-with-text.html#cb6-13" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="at">collapse =</span> <span class="st">&quot; &quot;</span>)</span>
+<span id="cb6-14"><a href="working-with-text.html#cb6-14" tabindex="-1"></a>})</span>
+<span id="cb6-15"><a href="working-with-text.html#cb6-15" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="working-with-text.html#cb6-16" tabindex="-1"></a><span class="co"># Inspect the structure of `txts` to verify it contains the loaded text from each file</span></span>
+<span id="cb6-17"><a href="working-with-text.html#cb6-17" tabindex="-1"></a><span class="co"># `str` provides an overview of the structure and content in `txts`</span></span>
+<span id="cb6-18"><a href="working-with-text.html#cb6-18" tabindex="-1"></a><span class="fu">str</span>(txts)</span></code></pre></div>
+<pre><code>##  Named chr [1:7] &quot;Linguistics is the scientific study of language. It involves analysing language form language meaning and langu&quot;| __truncated__ ...
+##  - attr(*, &quot;names&quot;)= chr [1:7] &quot;C:/Users/uqmschw5/OneDrive - The University of Queensland/Desktop/LDaCA/ResBaz2024ta/data/testcorpus/linguistics01.txt&quot; &quot;C:/Users/uqmschw5/OneDrive - The University of Queensland/Desktop/LDaCA/ResBaz2024ta/data/testcorpus/linguistics02.txt&quot; &quot;C:/Users/uqmschw5/OneDrive - The University of Queensland/Desktop/LDaCA/ResBaz2024ta/data/testcorpus/linguistics03.txt&quot; &quot;C:/Users/uqmschw5/OneDrive - The University of Queensland/Desktop/LDaCA/ResBaz2024ta/data/testcorpus/linguistics04.txt&quot; ...</code></pre>
+<p>To save multiple txt files, we follow a similar procedure and first determine the paths that define where R will store the files and then loop over the files and store them in the <code>testcorpus</code> folder.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="working-with-text.html#cb8-1" tabindex="-1"></a><span class="co"># Define the output file paths for each file in the sequence</span></span>
+<span id="cb8-2"><a href="working-with-text.html#cb8-2" tabindex="-1"></a><span class="co"># The `file.path` function constructs the paths dynamically by pasting together:</span></span>
+<span id="cb8-3"><a href="working-with-text.html#cb8-3" tabindex="-1"></a><span class="co">#   - the base directory using `here::here()`</span></span>
+<span id="cb8-4"><a href="working-with-text.html#cb8-4" tabindex="-1"></a><span class="co">#   - the &quot;data/testcorpus_new&quot; subdirectory</span></span>
+<span id="cb8-5"><a href="working-with-text.html#cb8-5" tabindex="-1"></a><span class="co">#   - the &quot;text&quot; prefix and sequence numbers (1 through 7) for each file</span></span>
+<span id="cb8-6"><a href="working-with-text.html#cb8-6" tabindex="-1"></a><span class="co">#   - the &quot;.txt&quot; extension to indicate text files</span></span>
+<span id="cb8-7"><a href="working-with-text.html#cb8-7" tabindex="-1"></a>outs <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">paste</span>(here<span class="sc">::</span><span class="fu">here</span>(), <span class="st">&quot;/&quot;</span>, <span class="st">&quot;data/testcorpus_new&quot;</span>, <span class="st">&quot;/&quot;</span>, <span class="st">&quot;text&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="st">&quot;.txt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>))</span>
+<span id="cb8-8"><a href="working-with-text.html#cb8-8" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="working-with-text.html#cb8-9" tabindex="-1"></a><span class="co"># Save each text element from `txts` into the corresponding file path defined in `outs`</span></span>
+<span id="cb8-10"><a href="working-with-text.html#cb8-10" tabindex="-1"></a><span class="co"># `lapply` iterates over each element of `txts` using `seq_along` to get the index `i`</span></span>
+<span id="cb8-11"><a href="working-with-text.html#cb8-11" tabindex="-1"></a><span class="co"># `writeLines` writes the content of `txts[[i]]` (each element in `txts`) to `outs[i]`, the corresponding file path</span></span>
+<span id="cb8-12"><a href="working-with-text.html#cb8-12" tabindex="-1"></a><span class="fu">lapply</span>(<span class="fu">seq_along</span>(txts), <span class="cf">function</span>(i) </span>
+<span id="cb8-13"><a href="working-with-text.html#cb8-13" tabindex="-1"></a>       <span class="fu">writeLines</span>(txts[[i]],  </span>
+<span id="cb8-14"><a href="working-with-text.html#cb8-14" tabindex="-1"></a>       <span class="at">con =</span> outs[i]))</span></code></pre></div>
+<pre><code>## [[1]]
+## NULL
+## 
+## [[2]]
+## NULL
+## 
+## [[3]]
+## NULL
+## 
+## [[4]]
+## NULL
+## 
+## [[5]]
+## NULL
+## 
+## [[6]]
+## NULL
+## 
+## [[7]]
+## NULL</code></pre>
+</div>
+</div>
+<div id="basics-of-regular-expressions" class="section level2 unnumbered hasAnchor">
+<h2>Basics of regular expressions<a href="working-with-text.html#basics-of-regular-expressions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before we delve into data cleaning, we will have a look at the regular expressions that can be used in R and also check what they stand for.</p>
+<p>There are three basic types of regular expressions:</p>
+<ul>
+<li><p>regular expressions that stand for individual symbols and determine frequencies</p></li>
+<li><p>regular expressions that stand for classes of symbols</p></li>
+<li><p>regular expressions that stand for structural properties</p></li>
+</ul>
+<p>The regular expressions below show the first type of regular expressions, i.e. regular expressions that stand for individual symbols and determine frequencies.</p>
+<div class="tabwid"><style>.cl-29a5f588{table-layout:auto;width:95%;}.cl-29992a60{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-29992a7e{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-299e0fda{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-299e3cee{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-299e3cf8{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-299e3d02{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-299e3d03{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-299e3d0c{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-299e3d0d{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-299e3d16{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-299e3d17{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-299e3d18{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-299e3d20{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-299e3d21{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-299e3d2a{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-29a5f588'>
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span id="tab:regex05">Table 1: </span><span>Regular expressions that stand for individual symbols and determine frequencies.</span></caption>
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-299e3cee"><p class="cl-299e0fda"><span class="cl-29992a60">RegEx Symbol/Sequence</span></p></th><th class="cl-299e3cf8"><p class="cl-299e0fda"><span class="cl-29992a60">Explanation</span></p></th><th class="cl-299e3d02"><p class="cl-299e0fda"><span class="cl-29992a60">Example</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-299e3d03"><p class="cl-299e0fda"><span class="cl-29992a7e">?</span></p></td><td class="cl-299e3d0c"><p class="cl-299e0fda"><span class="cl-29992a7e">The preceding item is optional and will be matched at most once</span></p></td><td class="cl-299e3d0d"><p class="cl-299e0fda"><span class="cl-29992a7e">walk[a-z]? = walk, walks</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-299e3d16"><p class="cl-299e0fda"><span class="cl-29992a7e">*</span></p></td><td class="cl-299e3d17"><p class="cl-299e0fda"><span class="cl-29992a7e">The preceding item will be matched zero or more times</span></p></td><td class="cl-299e3d18"><p class="cl-299e0fda"><span class="cl-29992a7e">walk[a-z]* = walk, walks, walked, walking</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-299e3d03"><p class="cl-299e0fda"><span class="cl-29992a7e">+</span></p></td><td class="cl-299e3d0c"><p class="cl-299e0fda"><span class="cl-29992a7e">The preceding item will be matched one or more times</span></p></td><td class="cl-299e3d0d"><p class="cl-299e0fda"><span class="cl-29992a7e">walk[a-z]+ = walks, walked, walking</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-299e3d16"><p class="cl-299e0fda"><span class="cl-29992a7e">{n}</span></p></td><td class="cl-299e3d17"><p class="cl-299e0fda"><span class="cl-29992a7e">The preceding item is matched exactly n times</span></p></td><td class="cl-299e3d18"><p class="cl-299e0fda"><span class="cl-29992a7e">walk[a-z]{2} = walked</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-299e3d03"><p class="cl-299e0fda"><span class="cl-29992a7e">{n,}</span></p></td><td class="cl-299e3d0c"><p class="cl-299e0fda"><span class="cl-29992a7e">The preceding item is matched n or more times</span></p></td><td class="cl-299e3d0d"><p class="cl-299e0fda"><span class="cl-29992a7e">walk[a-z]{2,} = walked, walking</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-299e3d20"><p class="cl-299e0fda"><span class="cl-29992a7e">{n,m}</span></p></td><td class="cl-299e3d21"><p class="cl-299e0fda"><span class="cl-29992a7e">The preceding item is matched at least n times, but not more than m times</span></p></td><td class="cl-299e3d2a"><p class="cl-299e0fda"><span class="cl-29992a7e">walk[a-z]{2,3} = walked, walking</span></p></td></tr></tbody></table></div>
+<p>The regular expressions below show the second type of regular expressions, i.e. regular expressions that stand for classes of symbols.</p>
+<div class="tabwid"><style>.cl-29c0b4d6{table-layout:auto;width:95%;}.cl-29b65450{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-29b65464{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-29ba3bce{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-29ba5e6a{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29ba5e6b{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29ba5e74{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29ba5e7e{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29ba5e7f{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29ba5e80{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29ba5e88{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29ba5e92{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-29c0b4d6'>
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span id="tab:regex03">Table 2: </span><span>Regular expressions that stand for classes of symbols.</span></caption>
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-29ba5e6a"><p class="cl-29ba3bce"><span class="cl-29b65450">RegEx Symbol/Sequence</span></p></th><th class="cl-29ba5e6b"><p class="cl-29ba3bce"><span class="cl-29b65450">Explanation</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e74"><p class="cl-29ba3bce"><span class="cl-29b65464">[ab]</span></p></td><td class="cl-29ba5e7e"><p class="cl-29ba3bce"><span class="cl-29b65464">lower case a and b</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e7f"><p class="cl-29ba3bce"><span class="cl-29b65464">[a-z]</span></p></td><td class="cl-29ba5e80"><p class="cl-29ba3bce"><span class="cl-29b65464">all lower case characters from a to z</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e74"><p class="cl-29ba3bce"><span class="cl-29b65464">[AB]</span></p></td><td class="cl-29ba5e7e"><p class="cl-29ba3bce"><span class="cl-29b65464">upper case a and b</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e7f"><p class="cl-29ba3bce"><span class="cl-29b65464">[A-Z]</span></p></td><td class="cl-29ba5e80"><p class="cl-29ba3bce"><span class="cl-29b65464">all upper case characters from A to Z</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e74"><p class="cl-29ba3bce"><span class="cl-29b65464">[12]</span></p></td><td class="cl-29ba5e7e"><p class="cl-29ba3bce"><span class="cl-29b65464">digits 1 and 2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e7f"><p class="cl-29ba3bce"><span class="cl-29b65464">[0-9]</span></p></td><td class="cl-29ba5e80"><p class="cl-29ba3bce"><span class="cl-29b65464">digits: 0 1 2 3 4 5 6 7 8 9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e74"><p class="cl-29ba3bce"><span class="cl-29b65464">[:digit:]</span></p></td><td class="cl-29ba5e7e"><p class="cl-29ba3bce"><span class="cl-29b65464">digits: 0 1 2 3 4 5 6 7 8 9</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e7f"><p class="cl-29ba3bce"><span class="cl-29b65464">[:lower:]</span></p></td><td class="cl-29ba5e80"><p class="cl-29ba3bce"><span class="cl-29b65464">lower case characters: a–z</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e74"><p class="cl-29ba3bce"><span class="cl-29b65464">[:upper:]</span></p></td><td class="cl-29ba5e7e"><p class="cl-29ba3bce"><span class="cl-29b65464">upper case characters: A–Z</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e7f"><p class="cl-29ba3bce"><span class="cl-29b65464">[:alpha:]</span></p></td><td class="cl-29ba5e80"><p class="cl-29ba3bce"><span class="cl-29b65464">alphabetic characters: a–z and A–Z</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e74"><p class="cl-29ba3bce"><span class="cl-29b65464">[:alnum:]</span></p></td><td class="cl-29ba5e7e"><p class="cl-29ba3bce"><span class="cl-29b65464">digits and alphabetic characters</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e7f"><p class="cl-29ba3bce"><span class="cl-29b65464">[:punct:]</span></p></td><td class="cl-29ba5e80"><p class="cl-29ba3bce"><span class="cl-29b65464">punctuation characters: . , ; etc.</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e74"><p class="cl-29ba3bce"><span class="cl-29b65464">[:graph:]</span></p></td><td class="cl-29ba5e7e"><p class="cl-29ba3bce"><span class="cl-29b65464">graphical characters: [:alnum:] and [:punct:]</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e7f"><p class="cl-29ba3bce"><span class="cl-29b65464">[:blank:]</span></p></td><td class="cl-29ba5e80"><p class="cl-29ba3bce"><span class="cl-29b65464">blank characters: Space and tab</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29ba5e88"><p class="cl-29ba3bce"><span class="cl-29b65464">[:space:]</span></p></td><td class="cl-29ba5e92"><p class="cl-29ba3bce"><span class="cl-29b65464">space characters: Space, tab, newline, and other space characters</span></p></td></tr></tbody></table></div>
+<p>The regular expressions that denote classes of symbols are enclosed in <code>[]</code> and <code>:</code>. The last type of regular expressions, i.e. regular expressions that stand for structural properties are shown below.</p>
+<div class="tabwid"><style>.cl-29d7a1be{table-layout:auto;width:95%;}.cl-29cd4e6c{font-family:'Arial';font-size:12pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-29cd4e80{font-family:'Arial';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-29d11560{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-29d137de{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29d137e8{background-color:rgba(207, 207, 207, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29d137e9{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29d137f2{background-color:rgba(239, 239, 239, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29d137f3{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29d137fc{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29d137fd{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-29d13806{background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-29d7a1be'>
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span id="tab:regex09">Table 3: </span><span>Regular expressions that stand for structural properties.</span></caption>
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-29d137de"><p class="cl-29d11560"><span class="cl-29cd4e6c">RegEx Symbol/Sequence</span></p></th><th class="cl-29d137e8"><p class="cl-29d11560"><span class="cl-29cd4e6c">Explanation</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-29d137e9"><p class="cl-29d11560"><span class="cl-29cd4e80">\\w</span></p></td><td class="cl-29d137f2"><p class="cl-29d11560"><span class="cl-29cd4e80">Word characters: [[:alnum:]_]</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29d137f3"><p class="cl-29d11560"><span class="cl-29cd4e80">\\W</span></p></td><td class="cl-29d137fc"><p class="cl-29d11560"><span class="cl-29cd4e80">No word characters: [^[:alnum:]_]</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29d137e9"><p class="cl-29d11560"><span class="cl-29cd4e80">\\s</span></p></td><td class="cl-29d137f2"><p class="cl-29d11560"><span class="cl-29cd4e80">Space characters: [[:blank:]]</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29d137f3"><p class="cl-29d11560"><span class="cl-29cd4e80">\\S</span></p></td><td class="cl-29d137fc"><p class="cl-29d11560"><span class="cl-29cd4e80">No space characters: [^[:blank:]]</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29d137e9"><p class="cl-29d11560"><span class="cl-29cd4e80">\\d</span></p></td><td class="cl-29d137f2"><p class="cl-29d11560"><span class="cl-29cd4e80">Digits: [[:digit:]]</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29d137f3"><p class="cl-29d11560"><span class="cl-29cd4e80">\\D</span></p></td><td class="cl-29d137fc"><p class="cl-29d11560"><span class="cl-29cd4e80">No digits: [^[:digit:]]</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29d137e9"><p class="cl-29d11560"><span class="cl-29cd4e80">\\b</span></p></td><td class="cl-29d137f2"><p class="cl-29d11560"><span class="cl-29cd4e80">Word edge</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29d137f3"><p class="cl-29d11560"><span class="cl-29cd4e80">\\B</span></p></td><td class="cl-29d137fc"><p class="cl-29d11560"><span class="cl-29cd4e80">No word edge</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29d137e9"><p class="cl-29d11560"><span class="cl-29cd4e80">&lt;</span></p></td><td class="cl-29d137f2"><p class="cl-29d11560"><span class="cl-29cd4e80">Word beginning</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29d137f3"><p class="cl-29d11560"><span class="cl-29cd4e80">&gt;</span></p></td><td class="cl-29d137fc"><p class="cl-29d11560"><span class="cl-29cd4e80">Word end</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29d137e9"><p class="cl-29d11560"><span class="cl-29cd4e80">^</span></p></td><td class="cl-29d137f2"><p class="cl-29d11560"><span class="cl-29cd4e80">Beginning of a string</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-29d137fd"><p class="cl-29d11560"><span class="cl-29cd4e80">$</span></p></td><td class="cl-29d13806"><p class="cl-29d11560"><span class="cl-29cd4e80">End of a string</span></p></td></tr></tbody></table></div>
+<p>Now that we have a basic understanding of regular expressions, we can continue with cleaning our data.</p>
+</div>
+<div id="cleaning-text-data" class="section level2 unnumbered hasAnchor">
+<h2>Cleaning text data<a href="working-with-text.html#cleaning-text-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To see how we can clean data, we will load some data representing speech of Donald Trump.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="working-with-text.html#cb10-1" tabindex="-1"></a><span class="co"># Load the text from the &quot;Trump.txt&quot; file line by line</span></span>
+<span id="cb10-2"><a href="working-with-text.html#cb10-2" tabindex="-1"></a><span class="co"># `readLines` reads each line of text from the file as a character vector</span></span>
+<span id="cb10-3"><a href="working-with-text.html#cb10-3" tabindex="-1"></a><span class="co"># The `here` function helps specify the file path in the &quot;data&quot; directory</span></span>
+<span id="cb10-4"><a href="working-with-text.html#cb10-4" tabindex="-1"></a>Trump <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">readLines</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;Trump.txt&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="working-with-text.html#cb10-5" tabindex="-1"></a>  </span>
+<span id="cb10-6"><a href="working-with-text.html#cb10-6" tabindex="-1"></a>  <span class="co"># Collapse the character vector into a single continuous string</span></span>
+<span id="cb10-7"><a href="working-with-text.html#cb10-7" tabindex="-1"></a>  <span class="co"># `paste0(collapse = &quot;&quot;)` removes any line breaks between lines</span></span>
+<span id="cb10-8"><a href="working-with-text.html#cb10-8" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="at">collapse =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb10-9"><a href="working-with-text.html#cb10-9" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="working-with-text.html#cb10-10" tabindex="-1"></a><span class="co"># Replace newline characters with a space</span></span>
+<span id="cb10-11"><a href="working-with-text.html#cb10-11" tabindex="-1"></a>Trump <span class="sc">%&gt;%</span></span>
+<span id="cb10-12"><a href="working-with-text.html#cb10-12" tabindex="-1"></a>  <span class="co"># remove numbers</span></span>
+<span id="cb10-13"><a href="working-with-text.html#cb10-13" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_remove_all</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">d&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-14"><a href="working-with-text.html#cb10-14" tabindex="-1"></a>  <span class="co"># Replace all non-alphanumeric characters with a space</span></span>
+<span id="cb10-15"><a href="working-with-text.html#cb10-15" tabindex="-1"></a>  <span class="co"># Replace all non-alphanumeric characters with a space</span></span>
+<span id="cb10-16"><a href="working-with-text.html#cb10-16" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(<span class="st">&quot;[^[:alnum:] &#39;]&quot;</span>, <span class="st">&quot; &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-17"><a href="working-with-text.html#cb10-17" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(<span class="st">&quot;n t &quot;</span>, <span class="st">&quot;nt &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-18"><a href="working-with-text.html#cb10-18" tabindex="-1"></a>  <span class="co"># Remove all double quote characters</span></span>
+<span id="cb10-19"><a href="working-with-text.html#cb10-19" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_remove_all</span>(<span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-20"><a href="working-with-text.html#cb10-20" tabindex="-1"></a>  <span class="co"># Remove extra whitespace and collapse multiple spaces into a single space</span></span>
+<span id="cb10-21"><a href="working-with-text.html#cb10-21" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_squish</span>()  <span class="sc">%&gt;%</span> </span>
+<span id="cb10-22"><a href="working-with-text.html#cb10-22" tabindex="-1"></a><span class="co"># convert to lower case</span></span>
+<span id="cb10-23"><a href="working-with-text.html#cb10-23" tabindex="-1"></a>  <span class="fu">tolower</span>() <span class="ot">-&gt;</span> Trump_clean</span>
+<span id="cb10-24"><a href="working-with-text.html#cb10-24" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="working-with-text.html#cb10-25" tabindex="-1"></a><span class="co"># Check the character count of each element in the cleaned data</span></span>
+<span id="cb10-26"><a href="working-with-text.html#cb10-26" tabindex="-1"></a><span class="fu">str</span>(Trump_clean)</span></code></pre></div>
+<pre><code>##  chr &quot;speech thank you so much that&#39;s so nice isn&#39;t he a great guy he doesn&#39;t get a fair press he doesn&#39;t get it it&#39;s&quot;| __truncated__</code></pre>
+</div>
+<div id="tabulating-text-data" class="section level2 unnumbered hasAnchor">
+<h2>Tabulating text data<a href="working-with-text.html#tabulating-text-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>It is very easy to extract frequency information and to create frequency lists. We can do this by first using the <code>unnest_tokens</code> function which splits texts into individual words, an then use the <code>count</code> function to get the raw frequencies of all word types in a text.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="working-with-text.html#cb12-1" tabindex="-1"></a><span class="co"># Convert the `Trump_clean` text data into a tibble format</span></span>
+<span id="cb12-2"><a href="working-with-text.html#cb12-2" tabindex="-1"></a><span class="co"># The `tibble` function creates a tibble with a single column named `text` containing the entire Trump text</span></span>
+<span id="cb12-3"><a href="working-with-text.html#cb12-3" tabindex="-1"></a>Trump_clean <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="working-with-text.html#cb12-4" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">text =</span> .) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="working-with-text.html#cb12-5" tabindex="-1"></a>  </span>
+<span id="cb12-6"><a href="working-with-text.html#cb12-6" tabindex="-1"></a>  <span class="co"># Use `unnest_tokens` to split the text into individual words</span></span>
+<span id="cb12-7"><a href="working-with-text.html#cb12-7" tabindex="-1"></a>  <span class="co"># Specify `ngrams` as the token type with `n=1` to break the text down into single words (unigrams)</span></span>
+<span id="cb12-8"><a href="working-with-text.html#cb12-8" tabindex="-1"></a>  <span class="co"># Each word will appear in a new row within the `word` column</span></span>
+<span id="cb12-9"><a href="working-with-text.html#cb12-9" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">unnest_tokens</span>(word, text, <span class="at">token =</span> <span class="st">&quot;ngrams&quot;</span>, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-10"><a href="working-with-text.html#cb12-10" tabindex="-1"></a>  </span>
+<span id="cb12-11"><a href="working-with-text.html#cb12-11" tabindex="-1"></a>  <span class="co"># Count the occurrences of each unique word and sort the counts in descending order</span></span>
+<span id="cb12-12"><a href="working-with-text.html#cb12-12" tabindex="-1"></a>  <span class="co"># The resulting data frame will have two columns: `word` and `n` (the count of each word)</span></span>
+<span id="cb12-13"><a href="working-with-text.html#cb12-13" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb12-14"><a href="working-with-text.html#cb12-14" tabindex="-1"></a>  </span>
+<span id="cb12-15"><a href="working-with-text.html#cb12-15" tabindex="-1"></a>  <span class="co"># Display the top 10 most frequent words</span></span>
+<span id="cb12-16"><a href="working-with-text.html#cb12-16" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 2
+##    word      n
+##    &lt;chr&gt; &lt;int&gt;
+##  1 i      6155
+##  2 the    5924
+##  3 to     5460
+##  4 and    5437
+##  5 we     3774
+##  6 a      3595
+##  7 it     3549
+##  8 you    3476
+##  9 they   3008
+## 10 of     2953</code></pre>
+</div>
+<div id="visualising-frequency-lists" class="section level2 unnumbered hasAnchor">
+<h2>Visualising frequency lists<a href="working-with-text.html#visualising-frequency-lists" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The next chunk of code processes a text variable (Trump) to count how often each word appears. It first converts the text into a tibble (a modern version of a data frame), then splits the text into individual words (using n-grams with n=1 for single words). It counts the occurrences of each word and sorts the results in descending order, retaining only the top 10 most frequent words in the <code>freq_tb</code> variable.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="working-with-text.html#cb14-1" tabindex="-1"></a><span class="co"># Convert the text into a tibble (a type of data frame) with one column named &#39;text&#39;</span></span>
+<span id="cb14-2"><a href="working-with-text.html#cb14-2" tabindex="-1"></a>Trump_clean <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="working-with-text.html#cb14-3" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">text =</span> .) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="working-with-text.html#cb14-4" tabindex="-1"></a>  <span class="co"># Break the text into individual words (using ngrams with n=1 means single words)</span></span>
+<span id="cb14-5"><a href="working-with-text.html#cb14-5" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">unnest_tokens</span>(word, text, <span class="at">token =</span> <span class="st">&quot;ngrams&quot;</span>, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="working-with-text.html#cb14-6" tabindex="-1"></a>  <span class="co"># Count the occurrences of each word and sort them in descending order</span></span>
+<span id="cb14-7"><a href="working-with-text.html#cb14-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="working-with-text.html#cb14-8" tabindex="-1"></a>  <span class="co"># Keep only the top 10 most frequent words</span></span>
+<span id="cb14-9"><a href="working-with-text.html#cb14-9" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>) <span class="ot">-&gt;</span> freq_tb  <span class="co"># Store the result in freq_tb</span></span></code></pre></div>
+<p>The next chunk creates a simple bar chart using the <code>ggplot2</code> package to visualize the word frequencies stored in <code>freq_tb.</code> The x-axis represents the words, while the y-axis represents the counts (frequency) of each word. The <code>geom_bar()</code> function is used with <code>stat = "identity"</code> to display the actual counts as bar heights.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="working-with-text.html#cb15-1" tabindex="-1"></a><span class="co"># Create a bar chart to visualize the frequency of the top words</span></span>
+<span id="cb15-2"><a href="working-with-text.html#cb15-2" tabindex="-1"></a><span class="fu">ggplot</span>(freq_tb, <span class="fu">aes</span>(<span class="at">x =</span> word, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="working-with-text.html#cb15-3" tabindex="-1"></a>  <span class="co"># Use bars to represent the counts of each word</span></span>
+<span id="cb15-4"><a href="working-with-text.html#cb15-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>This chunk creates a more visually appealing horizontal bar chart of the word frequencies. The ggplot() function is used to set up the plot, with reorder() ensuring that the words are arranged according to their frequencies. Bars represent the counts, and text labels displaying the frequency are positioned slightly above each bar. The coord_flip() function flips the axes to make the bars horizontal. Additional formatting, such as titles, axis labels, and a clean theme, is applied to enhance the chart’s readability, and the legend is removed for clarity.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="working-with-text.html#cb16-1" tabindex="-1"></a><span class="co"># Create a more detailed horizontal bar chart with word frequencies</span></span>
+<span id="cb16-2"><a href="working-with-text.html#cb16-2" tabindex="-1"></a><span class="fu">ggplot</span>(freq_tb, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(word, n), <span class="at">y =</span> n, <span class="at">label =</span> n, <span class="at">fill =</span> n)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="working-with-text.html#cb16-3" tabindex="-1"></a>  <span class="co"># Use bars to represent the counts of each word</span></span>
+<span id="cb16-4"><a href="working-with-text.html#cb16-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="working-with-text.html#cb16-5" tabindex="-1"></a>  <span class="co"># Add text labels to the bars showing their counts, offset slightly above the bars</span></span>
+<span id="cb16-6"><a href="working-with-text.html#cb16-6" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">y =</span> n <span class="sc">+</span> <span class="dv">250</span>)) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="working-with-text.html#cb16-7" tabindex="-1"></a>  <span class="co"># Flip the coordinates to make the bars horizontal</span></span>
+<span id="cb16-8"><a href="working-with-text.html#cb16-8" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb16-9"><a href="working-with-text.html#cb16-9" tabindex="-1"></a>  <span class="co"># Add titles and labels to the chart</span></span>
+<span id="cb16-10"><a href="working-with-text.html#cb16-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Frequency of words in test text&quot;</span>,</span>
+<span id="cb16-11"><a href="working-with-text.html#cb16-11" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb16-12"><a href="working-with-text.html#cb16-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-13"><a href="working-with-text.html#cb16-13" tabindex="-1"></a>  <span class="co"># Use a clean theme for the chart</span></span>
+<span id="cb16-14"><a href="working-with-text.html#cb16-14" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb16-15"><a href="working-with-text.html#cb16-15" tabindex="-1"></a>  <span class="co"># Remove the legend from the chart</span></span>
+<span id="cb16-16"><a href="working-with-text.html#cb16-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="concordancing-and-kwics" class="section level2 unnumbered hasAnchor">
+<h2>Concordancing and KWICs<a href="working-with-text.html#concordancing-and-kwics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Creating concordances or key-word-in-context displays is one of the most common practices when dealing with text data. Fortunately, there exist ready-made functions that make this a very easy task in R. We will use the <code>kwic</code> function from the <code>quanteda</code> package to create kwics here.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="working-with-text.html#cb17-1" tabindex="-1"></a><span class="co"># Perform a keyword-in-context (KWIC) search on the tokenized `Trump_clean` text data</span></span>
+<span id="cb17-2"><a href="working-with-text.html#cb17-2" tabindex="-1"></a><span class="co"># `quanteda::kwic` is used to find occurrences of a specified phrase with a context window</span></span>
+<span id="cb17-3"><a href="working-with-text.html#cb17-3" tabindex="-1"></a><span class="co"># The `tokens` function tokenizes `Trump_split_clean` before applying the KWIC search</span></span>
+<span id="cb17-4"><a href="working-with-text.html#cb17-4" tabindex="-1"></a><span class="co"># `pattern = phrase(&quot;great again&quot;)` specifies the exact phrase to search for in the text</span></span>
+<span id="cb17-5"><a href="working-with-text.html#cb17-5" tabindex="-1"></a><span class="co"># `window = 3` sets the number of words shown on each side of the phrase for context</span></span>
+<span id="cb17-6"><a href="working-with-text.html#cb17-6" tabindex="-1"></a><span class="co"># `valuetype = &quot;regex&quot;` allows the pattern to be treated as a regular expression</span></span>
+<span id="cb17-7"><a href="working-with-text.html#cb17-7" tabindex="-1"></a>kwic_multiple <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">kwic</span>(<span class="fu">tokens</span>(Trump_clean), </span>
+<span id="cb17-8"><a href="working-with-text.html#cb17-8" tabindex="-1"></a>       <span class="at">pattern =</span> <span class="fu">phrase</span>(<span class="st">&quot;great again&quot;</span>),</span>
+<span id="cb17-9"><a href="working-with-text.html#cb17-9" tabindex="-1"></a>       <span class="at">window =</span> <span class="dv">3</span>, </span>
+<span id="cb17-10"><a href="working-with-text.html#cb17-10" tabindex="-1"></a>       <span class="at">valuetype =</span> <span class="st">&quot;regex&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-11"><a href="working-with-text.html#cb17-11" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb17-12"><a href="working-with-text.html#cb17-12" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="working-with-text.html#cb17-13" tabindex="-1"></a><span class="co"># Inspect the first few rows of the KWIC results to verify the output</span></span>
+<span id="cb17-14"><a href="working-with-text.html#cb17-14" tabindex="-1"></a><span class="fu">head</span>(kwic_multiple)</span></code></pre></div>
+<pre><code>##   docname from   to               pre     keyword              post     pattern
+## 1   text1 2609 2610  make our country great again        we have to great again
+## 2   text1 3827 3828   to make america great again       we can make great again
+## 3   text1 3834 3835 make this country great again  the potential is great again
+## 4   text1 8572 8573 will make america great again         and if we great again
+## 5   text1 9674 9675   to make america great again         folks i m great again
+## 6   text1 9688 9689   to make america great again and another great great again</code></pre>
+<p>We can now also select concordances based on specific features. For example, we only want those instances of “great again” if the preceding word was “america”.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="working-with-text.html#cb19-1" tabindex="-1"></a>kwic_multiple_select <span class="ot">&lt;-</span> kwic_multiple <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="working-with-text.html#cb19-2" tabindex="-1"></a>  <span class="co"># last element before search term is &quot;america&quot;</span></span>
+<span id="cb19-3"><a href="working-with-text.html#cb19-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">str_detect</span>(pre, <span class="st">&quot;america$&quot;</span>))</span>
+<span id="cb19-4"><a href="working-with-text.html#cb19-4" tabindex="-1"></a><span class="co"># inspect data</span></span>
+<span id="cb19-5"><a href="working-with-text.html#cb19-5" tabindex="-1"></a><span class="fu">head</span>(kwic_multiple_select)</span></code></pre></div>
+<pre><code>##   docname  from    to                   pre     keyword              post
+## 1   text1  3827  3828       to make america great again       we can make
+## 2   text1  8572  8573     will make america great again         and if we
+## 3   text1  9674  9675       to make america great again         folks i m
+## 4   text1  9688  9689       to make america great again and another great
+## 5   text1 10294 10295 remember make america great again       we re going
+## 6   text1 12108 12109    never make america great again    they dont even
+##       pattern
+## 1 great again
+## 2 great again
+## 3 great again
+## 4 great again
+## 5 great again
+## 6 great again</code></pre>
+<p>Again, we can use the <code>write.table</code> function to save our kwics to disc.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="working-with-text.html#cb21-1" tabindex="-1"></a><span class="fu">write.table</span>(kwic_multiple_select, here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;kwic_multiple_select.txt&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p>As most of the data that we use is on out computers (rather than being somewhere on the web), we now load files with text from your computer.</p>
+</div>
+<div id="going-further" class="section level2 unnumbered hasAnchor">
+<h2>Going further<a href="working-with-text.html#going-further" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you want to learn more about using R for text analytics and what methods you could apply to your data, Please check out the <a href="www.ladal.edu.au"><strong>Language Technology and Data Analysis Laboratory (LADAL)</strong></a> - especially the <a href="https://ladal.edu.au/tutorials.html#5_Text_Analytics"><strong>LADAL Tutorials on Text analytics</strong></a> and the <a href="https://ladal.edu.au/tools.html"><strong>LADAL Tools</strong></a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="getting-started-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ending-r-sessions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/MartinSchweinberger/ResBaz2024ta/edit/main/05-workingwithtext.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/MartinSchweinberger/ResBaz2024ta/blob/main/05-workingwithtext.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
