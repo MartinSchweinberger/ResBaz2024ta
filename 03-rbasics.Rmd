@@ -1,0 +1,56 @@
+# R and RStudio Basics{-}
+
+RStudio is a so-called IDE - Integrated Development Environment. The interface provides easy access to R. The advantage of this application is that R programs and files as well as a project directory can be managed easily. The environment is capable of editing and running program code, viewing outputs and rendering graphics. Furthermore, it is possible to view variables and data objects of an R-script directly in the interface. 
+
+## RStudio: Panes{-}
+
+The GUI - Graphical User Interface - that RStudio provides divides the screen into four areas that are called **panes**:
+
+1. File editor
+2. Environment variables
+3. R console
+4. Management panes (File browser, plots, help display and R packages).
+
+The two most important are the R console (bottom left) and the File editor (or Script in the top left).
+The Environment variables and Management panes are on the right of the screen and they contain: 
+
+* **Environment** (top): Lists all currently defined objects and data sets
+* **History** (top): Lists all commands recently used or associated with a project
+* **Plots** (bottom): Graphical output goes here
+* **Help** (bottom): Find help for R packages and functions.  Don't forget you can type `?` before a function name in the console to get info in the Help section. 
+* **Files** (bottom): Shows the files available to you in your working directory
+
+These RStudio panes are shown below.
+
+```{r intro_01_17, fig.width=10, fig.height=8, echo=FALSE, warning=FALSE}
+knitr::include_graphics("https://slcladal.github.io/images/RStudioscreenshot.png")
+```
+
+### R Console (bottom left pane){-}
+
+The console pane allows you to quickly and immediately execute R code. You can experiment with functions here, or quickly print data for viewing.
+
+
+To use R more fully, we need to understand **objects**, **functions**, and **indexing** - which we will learn about as we go.
+
+For now, think of *objects as nouns* and *functions as verbs*. 
+
+## Running commands from a script{-}
+
+To run code from a script, insert your cursor on a line with a command, and press `CTRL/CMD+Enter`.
+
+Or highlight some code to only run certain sections of the command, then press `CTRL/CMD+Enter` to run.
+
+Alternatively, use the `Run` button at the top of the pane to execute the current line or selection (see below).
+
+```{r rstudio13, echo=F, fig.cap="", message=FALSE, warning=FALSE, out.width='50%'}
+knitr::include_graphics("https://slcladal.github.io/images/RStudio_run.png")
+```  
+
+### Script Editor (top left pane){-}
+
+In contrast to the R console, which quickly runs code, the Script Editor (in the top left) does not automatically execute code. The Script Editor allows you to save the code essential to your analysis.  You can re-use that code in the moment, refer back to it later, or publish it for replication.  
+
+
+Now, that we have explored RStudio, we are ready to get started with R!
+

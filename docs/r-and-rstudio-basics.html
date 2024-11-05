@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>R and RStudio Basics | Text Analytics part 1: Introduction to R for Text Analysis</title>
+  <meta name="description" content="R and RStudio Basics | Text Analytics part 1: Introduction to R for Text Analysis" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="R and RStudio Basics | Text Analytics part 1: Introduction to R for Text Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R and RStudio Basics | Text Analytics part 1: Introduction to R for Text Analysis" />
+  
+  
+  
+
+<meta name="author" content="Martin Schweinberger and Sam Hames" />
+
+
+<meta name="date" content="2024-11-05" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="preparation.html"/>
+<link rel="next" href="getting-started-with-r.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ResBazQld 2024 Text Analytics Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#installing-r-and-rstudio"><i class="fa fa-check"></i>Installing R and RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html"><i class="fa fa-check"></i>Preparation</a>
+<ul>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#folder-structure-and-r-projects"><i class="fa fa-check"></i>Folder Structure and R projects</a>
+<ul>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#create-a-folder-for-your-project"><i class="fa fa-check"></i>1. Create a folder for your project</a></li>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#open-rstudio"><i class="fa fa-check"></i>2. Open RStudio</a></li>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#r-projects"><i class="fa fa-check"></i>3. R Projects</a></li>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#r-notebooks"><i class="fa fa-check"></i>4. R Notebooks</a></li>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#getting-started-with-r-notebooks"><i class="fa fa-check"></i>5. Getting started with R Notebooks</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="preparation.html"><a href="preparation.html#r-markdown"><i class="fa fa-check"></i>R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html"><i class="fa fa-check"></i>R and RStudio Basics</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html#rstudio-panes"><i class="fa fa-check"></i>RStudio: Panes</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html#r-console-bottom-left-pane"><i class="fa fa-check"></i>R Console (bottom left pane)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html#running-commands-from-a-script"><i class="fa fa-check"></i>Running commands from a script</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html#script-editor-top-left-pane"><i class="fa fa-check"></i>Script Editor (top left pane)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i>Getting started with R</a>
+<ul>
+<li class="chapter" data-level="" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#setting-up-an-r-session"><i class="fa fa-check"></i>Setting up an R session</a></li>
+<li class="chapter" data-level="" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#packages"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-help"><i class="fa fa-check"></i>Getting help</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html"><i class="fa fa-check"></i>Working with text</a>
+<ul>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#loading-and-saving-texts"><i class="fa fa-check"></i>Loading and saving text(s)</a>
+<ul>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#loading-and-saving-a-single-text"><i class="fa fa-check"></i>Loading and saving a single text</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#loading-and-saving-many-texts"><i class="fa fa-check"></i>Loading and saving many texts</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#basics-of-regular-expressions"><i class="fa fa-check"></i>Basics of regular expressions</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#cleaning-text-data"><i class="fa fa-check"></i>Cleaning text data</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#tabulating-text-data"><i class="fa fa-check"></i>Tabulating text data</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#visualising-frequency-lists"><i class="fa fa-check"></i>Visualising frequency lists</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#concordancing-and-kwics"><i class="fa fa-check"></i>Concordancing and KWICs</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#going-further"><i class="fa fa-check"></i>Going further</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#extracting-session-information"><i class="fa fa-check"></i>Extracting session information</a></li>
+<li class="chapter" data-level="" data-path="working-with-text.html"><a href="working-with-text.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Text Analytics part 1: Introduction to R for Text Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-and-rstudio-basics" class="section level1 unnumbered hasAnchor">
+<h1>R and RStudio Basics<a href="r-and-rstudio-basics.html#r-and-rstudio-basics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>RStudio is a so-called IDE - Integrated Development Environment. The interface provides easy access to R. The advantage of this application is that R programs and files as well as a project directory can be managed easily. The environment is capable of editing and running program code, viewing outputs and rendering graphics. Furthermore, it is possible to view variables and data objects of an R-script directly in the interface.</p>
+<div id="rstudio-panes" class="section level2 unnumbered hasAnchor">
+<h2>RStudio: Panes<a href="r-and-rstudio-basics.html#rstudio-panes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The GUI - Graphical User Interface - that RStudio provides divides the screen into four areas that are called <strong>panes</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>File editor</li>
+<li>Environment variables</li>
+<li>R console</li>
+<li>Management panes (File browser, plots, help display and R packages).</li>
+</ol>
+<p>The two most important are the R console (bottom left) and the File editor (or Script in the top left).
+The Environment variables and Management panes are on the right of the screen and they contain:</p>
+<ul>
+<li><strong>Environment</strong> (top): Lists all currently defined objects and data sets</li>
+<li><strong>History</strong> (top): Lists all commands recently used or associated with a project</li>
+<li><strong>Plots</strong> (bottom): Graphical output goes here</li>
+<li><strong>Help</strong> (bottom): Find help for R packages and functions. Don’t forget you can type <code>?</code> before a function name in the console to get info in the Help section.</li>
+<li><strong>Files</strong> (bottom): Shows the files available to you in your working directory</li>
+</ul>
+<p>These RStudio panes are shown below.</p>
+<p><img src="https://slcladal.github.io/images/RStudioscreenshot.png" /><!-- --></p>
+<div id="r-console-bottom-left-pane" class="section level3 unnumbered hasAnchor">
+<h3>R Console (bottom left pane)<a href="r-and-rstudio-basics.html#r-console-bottom-left-pane" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The console pane allows you to quickly and immediately execute R code. You can experiment with functions here, or quickly print data for viewing.</p>
+<p>To use R more fully, we need to understand <strong>objects</strong>, <strong>functions</strong>, and <strong>indexing</strong> - which we will learn about as we go.</p>
+<p>For now, think of <em>objects as nouns</em> and <em>functions as verbs</em>.</p>
+</div>
+</div>
+<div id="running-commands-from-a-script" class="section level2 unnumbered hasAnchor">
+<h2>Running commands from a script<a href="r-and-rstudio-basics.html#running-commands-from-a-script" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To run code from a script, insert your cursor on a line with a command, and press <code>CTRL/CMD+Enter</code>.</p>
+<p>Or highlight some code to only run certain sections of the command, then press <code>CTRL/CMD+Enter</code> to run.</p>
+<p>Alternatively, use the <code>Run</code> button at the top of the pane to execute the current line or selection (see below).</p>
+<p><img src="https://slcladal.github.io/images/RStudio_run.png" width="50%" /></p>
+<div id="script-editor-top-left-pane" class="section level3 unnumbered hasAnchor">
+<h3>Script Editor (top left pane)<a href="r-and-rstudio-basics.html#script-editor-top-left-pane" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In contrast to the R console, which quickly runs code, the Script Editor (in the top left) does not automatically execute code. The Script Editor allows you to save the code essential to your analysis. You can re-use that code in the moment, refer back to it later, or publish it for replication.</p>
+<p>Now, that we have explored RStudio, we are ready to get started with R!</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="preparation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="getting-started-with-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/MartinSchweinberger/ResBaz2024ta/edit/main/03-rbasics.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/MartinSchweinberger/ResBaz2024ta/blob/main/03-rbasics.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

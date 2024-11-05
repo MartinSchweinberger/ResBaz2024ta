@@ -1,9 +1,46 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAME HERE"
+title: "Text Analytics part 1: Introduction to R for Text Analysis"
+author: "Martin Schweinberger and Sam Hames"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
+link-citations: yes
+bibliography: bibliography.bib
 ---
 
-# Down the rabbit-hole
+
+
+```{r resbaz, echo=FALSE, out.width= "40%", out.extra='style="float:right; padding:10px"'}
+knitr::include_graphics("https://slcladal.github.io/images/resbazqld2024.png")
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+
+
+# Introduction{-}
+
+This workshop shows how to get started with R and it specifically focuses on R for analyzing language data but it offers valuable information for anyone who wants to get started with R. As such, this workshop is aimed at fresh users or beginners with the aim of showcasing how to set up a R session in RStudio, how to set up R projects, and how to do basic operations on text using R. 
+
+The goals of this workshop are:
+
+- How to get started with R 
+- How to orient yourself to R and RStudio
+- Understand the basics of working with text data: loading and saving text data, cleaning text data, and creating simple plots
+
+The intended audience for this workshop is beginner-level, with no or little previous experience using R. Thus, no prior knowledge of R is required.
+
+## Installing R and RStudio{-}
+
+* You have NOT yet installed **R** on your computer? 
+
+  + You have a Windows computer? Then click [here](https://cran.r-project.org/bin/windows/base/R-4.0.2-win.exe) for downloading and installing R
+
+  + You have a Mac? Then click [here](https://cran.r-project.org/bin/macosx/R-4.0.2.pkg) for downloading and installing R
+
+* You have NOT yet installed **RStudio** on your computer?
+
+  + Click [here](https://rstudio.com/products/rstudio/download/#download) for downloading and installing RStudio.
+
+
+You can find a more elaborate explanation of how to download and install R and RStudio [here](https://gitlab.com/stragu/DSH/blob/master/R/Installation.md) that was created by the UQ library.
+
 
